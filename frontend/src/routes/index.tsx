@@ -285,59 +285,12 @@ function HomePage() {
           </div>
         )}
 
-             {/* =====================================================
-    VEHICLE TYPES
-====================================================== */}
-
-<div className="hero-floating absolute right-0 top-[85px] z-30 w-[190px] rounded-3xl border border-slate-100 bg-white/95 p-3 shadow-2xl shadow-slate-900/10 backdrop-blur-md">
-
-  <div className="mb-2 px-3 pt-1">
-    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-      Vehicle types
-    </p>
-  </div>
-
-  {categories.map((category, index) => {
-    const Icon = category.icon;
-
-    return (
-      <Link
-        key={category.label}
-        to="/vehicles"
-        search={{
-          type: category.type,
-          fuel: category.fuel,
-        }}
-        className={`group flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-300 hover:bg-blue-50 ${
-          index === 2
-            ? "bg-blue-50 text-blue-600"
-            : "text-slate-500"
-        }`}
-      >
-        <div
-          className={`grid size-9 place-items-center rounded-lg transition-all duration-300 ${
-            index === 2
-              ? "bg-blue-600 text-white"
-              : "bg-slate-50 text-slate-500 group-hover:bg-blue-100 group-hover:text-blue-600"
-          }`}
-        >
-          <Icon className="size-4" />
-        </div>
-
-        <span className="text-sm font-semibold">
-          {category.label}
-        </span>
-      </Link>
-    );
-  })}
-</div>
-
-
+             
 {/* =====================================================
     BOTTOM FLOATING CARD
 ====================================================== */}
 
-<div className="hero-floating absolute bottom-[55px] right-[8%] z-30 rounded-2xl border border-white/80 bg-white/95 px-5 py-4 shadow-xl shadow-slate-900/10 backdrop-blur-md">
+<div className="hero-floating absolute bottom-[20px] right-[1%] z-30 rounded-2xl border border-white/80 bg-white/95 px-5 py-4 shadow-xl shadow-slate-900/10 backdrop-blur-md">
 
   <div className="flex items-center gap-3">
 
