@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ChatbotWidget } from "../components/Chatbot";
 import {
   Outlet,
   Link,
@@ -135,6 +136,7 @@ function RootComponent() {
         <SiteFooter />
       </div>
       <Toaster position="top-right" />
+      <ChatbotWidget />
     </QueryClientProvider>
   );
 }

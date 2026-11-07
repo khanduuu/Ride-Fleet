@@ -26,6 +26,11 @@ from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
 from imagekitio import ImageKit
+from chatbot import chatbot_reply
+from database import SessionLocal, get_db
+
+class ChatRequest(BaseModel):
+    message: str
 
 load_dotenv()
 
@@ -57,6 +62,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:8080",
         "http://127.0.0.1:8080",
+        "http://localhost:5173",      # Add Vite dev server port
+        "http://127.0.0.1:5173",      # Add Vite dev server port
         "https://ride-fleet.vercel.app",
     ],
     allow_credentials=True,
@@ -67,6 +74,7 @@ app.add_middleware(
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+
 def get_db():
     db = SessionLocal()
     try:
@@ -74,6 +82,22 @@ def get_db():
     finally:
         db.close()
 
+# ---------------------------------------------------------
+# Chatbot API Endpoint
+# ---------------------------------------------------------
+
+@app.post("/chat")
+def chat_endpoint(request: ChatRequest, db: Session = Depends(get_db)):
+    if not request.message or not request.message.strip():
+        raise HTTPException(status_code=400, detail="Message cannot be empty.")
+
+    try:
+        # Calls the function from backend/chatbot.py
+        response = chatbot_reply(request.message, db)
+        return response
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Chatbot processing error: {str(e)}")
+    
 def get_current_user(
     credentials: HTTPAuthorizationCredentials = Security(security),
 ):
